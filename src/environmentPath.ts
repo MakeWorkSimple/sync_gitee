@@ -1,9 +1,12 @@
 "use strict";
 import { normalize, resolve } from "path";
+import { ExtensionContext } from "vscode";
 
 export class Environment {
+    public context: ExtensionContext;
     public PATH: string = '';
     public FILE_SETTING: string = '';
+    public USER_FOLDER: string = '';
 
     public FILE_SETTING_NAME: string = "settings.json";
 
@@ -19,11 +22,13 @@ export class Environment {
 
     // public FOLDER_SNIPPETS: string = '';
 
-    constructor() {
+    constructor(context: ExtensionContext) {
         // state.context.globalState.update("_", undefined); 
-        this.PATH = resolve(state.context.globalStoragePath, "../../..").concat(
+        this.context = context;
+        this.PATH = resolve(this.context.globalStoragePath, "../../..").concat(
             normalize("/")
         );
-        this.FILE_SETTING
+        this.USER_FOLDER = resolve(this.PATH, "User").concat(normalize("/"));
+        this.FILE_SETTING = this.USER_FOLDER.concat(this.FILE_SETTING_NAME);
     }
 }
