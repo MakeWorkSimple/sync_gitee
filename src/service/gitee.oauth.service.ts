@@ -1,6 +1,6 @@
 import { URL, URLSearchParams } from "url";
 import { Server } from "http";
-import { createReadStream, readFile } from 'fs';
+import { createReadStream, readFile, writeFile } from 'fs';
 import fetch from "node-fetch";
 import * as express from "express";
 import { resolve } from "dns";
@@ -32,10 +32,8 @@ export class GiteeOAuthService {
             ).then(host)
     };
 
-    public postGist(source_file: string, callback: (msg: string) => any) {
-        var FormData = require('form-data')
+    public postGist(source_path: string, source_name: string, callback: (msg: string) => any) {
         const url = `https://gitee.com/api/v5/gists/${this.gist}`
-        var source_string = ""
         function readfile(path: string) {
             return new Promise((resolve, reject) => {
                 readFile(path, 'utf8', (err, data) => {
@@ -48,40 +46,16 @@ export class GiteeOAuthService {
             });
         }
 
-
-        // function post(params: any) {
-        //     var _this = this;
-        //     var data = {
-        //         access_token: _this.access_token,
-        //         files: {
-        //             "setting.json": { content: params.toString() }
-        //         },
-        //         // "description": "description",
-        //         // "id": "nprahk93x7fceds415uql98"
-
-        //     };
-        //     fetch(url,
-        //         {
-        //             method: 'PATCH',
-        //             // body: params
-        //             body: JSON.stringify(data),
-        //             headers: { 'Content-Type': 'application/json' },
-        //         }).then(
-        //             res => res.text()
-        //         ).then(callback)
-        // }
-
-        readfile(source_file).then(
+        readfile(source_path).then(
             (params: any) => {
                 var _this = this;
                 var data = {
                     access_token: _this.access_token,
                     files: {
-                        "setting.json": { content: params.toString() }
+                        [`${source_name}`]: {
+                            content: params.toString()
+                        }
                     },
-                    // "description": "description",
-                    // "id": "nprahk93x7fceds415uql98"
-
                 };
                 fetch(url,
                     {
@@ -97,4 +71,33 @@ export class GiteeOAuthService {
 
     }
 
+    public fetchGist(source_path: string, source_name: string, callback: (msg: string) => any) {
+        var url = `https://gitee.com/api/v5/gists?access_token=${this.access_token}&page=1&per_page=20`
+
+        fetch(url,
+            {
+                method: 'get'
+            }
+        ).then(
+            res => res.json()
+        ).then(
+            (result) => {
+                let my_discribtion: any;
+                result.forEach((item: any) => {
+                    if (item.id === this.gist) {
+                        my_discribtion = item
+                    }
+                })
+                return my_discribtion.files;
+            }
+        ).then((files) => {
+            console.log(files);
+            let content = files[source_name].content;
+            writeFile(source_path, content, (err) => {
+                console.log(err)
+            });
+            return content
+        }
+        ).then(callback)
+    }
 }

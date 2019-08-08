@@ -31,9 +31,10 @@ export function activate(context: vscode.ExtensionContext) {
 		// /Users/chenxin/Library/Application Support/Code/User/globalStorage/undefined_publisher.simple-extension
 
 		// vscode.window.showInformationMessage(environment.FILE_SETTING);
-		vscode.window.showInformationMessage(environment.FILE_SETTING);
+		// vscode.window.showInformationMessage(environment.FILE_SETTING);
 		// giteeService.getGist('200', vscode.window.showInformationMessage);
-		giteeService.postGist(environment.FILE_SETTING, vscode.window.showInformationMessage)
+		// giteeService.postGist(environment.FILE_SETTING, environment.FILE_SETTING_NAME, vscode.window.showInformationMessage)
+		giteeService.fetchGist(environment.FILE_SETTING_NAME, vscode.window.showInformationMessage)
 
 		// state.environment.FILE_SETTING;
 	});

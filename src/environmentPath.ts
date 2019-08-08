@@ -8,7 +8,7 @@ export class Environment {
     public FILE_SETTING: string = '';
     public USER_FOLDER: string = '';
 
-    public FILE_SETTING_NAME: string = "settings.json";
+    public FILE_SETTING_NAME: string = 'settings.json';
 
     // public FILE_LAUNCH_NAME: string = "launch.json";
     // public FILE_KEYBINDING_NAME: string = "keybindings.json";
@@ -30,5 +30,6 @@ export class Environment {
         );
         this.USER_FOLDER = resolve(this.PATH, "User").concat(normalize("/"));
         this.FILE_SETTING = this.USER_FOLDER.concat(this.FILE_SETTING_NAME);
+
     }
 }

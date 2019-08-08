@@ -45,5 +45,14 @@
 		"express": "^4.16.4",
 		"form-data": "^2.5.0",
 		"node-fetch": "^2.5.0"
+	},
+	"configuration": {
+		"properties": {
+			"gitee.gist": {
+				"type": "string",
+				"default": "",
+				"description": "%ext.config.gist%"
+			}
+		}
 	}
 }
