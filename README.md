@@ -1,6 +1,7 @@
 # simple-extension README
 
-This is the README for your extension "simple-extension". After writing up a brief description, we recommend including the following sections.
+做一个简单同步vscode 配置的插件，因为github gist不知原因的
+不可访问，所以国内会同步到码云，稍后会放出教程。
 
 ## Features
 

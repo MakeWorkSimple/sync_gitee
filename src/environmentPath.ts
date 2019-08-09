@@ -1,6 +1,7 @@
 "use strict";
 import { normalize, resolve } from "path";
 import { ExtensionContext } from "vscode";
+
 // TODO 插件配置文件
 export class Environment {
     public context: ExtensionContext;

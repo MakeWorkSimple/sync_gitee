@@ -4,6 +4,7 @@ import { createReadStream, readFile, writeFile } from 'fs';
 import fetch from "node-fetch";
 import * as express from "express";
 import { resolve } from "dns";
+import * as vscode from 'vscode';
 
 export class GiteeOAuthService {
     public app: express.Express;

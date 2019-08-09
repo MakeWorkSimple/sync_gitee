@@ -1,8 +1,12 @@
 {
-	"name": "simple-extension",
+	"name": "gitee-code-settings-sync",
 	"displayName": "simple",
 	"description": "just test",
 	"version": "0.0.1",
+	"publisher": "Alex",
+	"author": {
+		"name": "Alex"
+	},
 	"engines": {
 		"vscode": "^1.36.0"
 	},
@@ -10,14 +14,18 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:extension.helloWorld"
+		"*"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "extension.helloWorld",
-				"title": "Hello World2"
+				"command": "extension.uploadSetting",
+				"title": "%cmd.upload.settings.title%"
+			},
+			{
+				"command": "extension.downloadSetting",
+				"title": "%cmd.download.settings.title%"
 			}
 		]
 	},
@@ -30,11 +38,12 @@
 	},
 	"devDependencies": {
 		"@types/express": "^4.17.0",
+		"@types/fs-extra": "^8.0.0",
 		"@types/glob": "^7.1.1",
 		"@types/mocha": "^5.2.6",
 		"@types/node": "^10.12.21",
-		"@types/vscode": "^1.36.0",
 		"@types/node-fetch": "^2.3.3",
+		"@types/vscode": "^1.36.0",
 		"glob": "^7.1.4",
 		"mocha": "^6.1.4",
 		"tslint": "^5.12.1",
@@ -44,7 +53,9 @@
 	"dependencies": {
 		"express": "^4.16.4",
 		"form-data": "^2.5.0",
-		"node-fetch": "^2.5.0"
+		"node-fetch": "^2.5.0",
+		"fs-extra": "^8.0.1",
+		"vscode-nls": "^3.2.5"
 	},
 	"configuration": {
 		"properties": {
