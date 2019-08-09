@@ -27,7 +27,17 @@
 				"command": "extension.downloadSetting",
 				"title": "%cmd.download.settings.title%"
 			}
-		]
+		],
+		"configuration": {
+			"title": "set gitee gist",
+			"properties": {
+				"gitee.gist": {
+					"type": "string",
+					"default": "",
+					"description": "%ext.config.gist%"
+				}
+			}
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
@@ -56,14 +66,5 @@
 		"node-fetch": "^2.5.0",
 		"fs-extra": "^8.0.1",
 		"vscode-nls": "^3.2.5"
-	},
-	"configuration": {
-		"properties": {
-			"gitee.gist": {
-				"type": "string",
-				"default": "",
-				"description": "%ext.config.gist%"
-			}
-		}
 	}
 }
