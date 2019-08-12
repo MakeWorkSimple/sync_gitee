@@ -7,7 +7,7 @@ import { GiteeOAuthService } from './service/gitee.oauth.service';
 import { SyncService } from './service/sync';
 import { ExtensionInformation } from './service/plugin.service';
 import * as nls from 'vscode-nls';
-
+import { Commons } from './common';
 const localize = nls.config({ messageFormat: nls.MessageFormat.file })();
 // import { extensions } from "vscode";
 // this method is called when your extension is activated
@@ -16,6 +16,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 
 	// state.context = context;
+
 	let environment = new Environment(context);
 	let configuration = vscode.workspace.getConfiguration('gitee');
 	var gist = configuration.get('gist');
@@ -37,13 +38,17 @@ export function activate(context: vscode.ExtensionContext) {
 
 	let pull = vscode.commands.registerCommand('extension.downloadSetting', () => {
 		// The code you place here will be executed every time your command is executed
-		vscode.window.showInformationMessage("environment.FILE_EXTENSION");
+		// download user settings file
 		// giteeService.fetchGist(environment.FILE_SETTING, environment.FILE_SETTING_NAME, vscode.window.showInformationMessage);
+		// download extendtion file
 		// giteeService.fetchGist(environment.FILE_EXTENSION, environment.FILE_EXTENSION_NAME, vscode.window.showInformationMessage);
+		// install extendtion 
+		// SyncService.installExt(environment.FILE_EXTENSION, vscode.window.showInformationMessage);
 
-
-		SyncService.installExt(environment.FILE_EXTENSION, vscode.window.showInformationMessage);
-
+		Commons.initCommons();
+		Commons.outPut('-----------');
+		Commons.outPut('-----2-----');
+		Commons.outPut('-----3-----');
 	});
 
 	context.subscriptions.push(push);
