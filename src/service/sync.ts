@@ -53,5 +53,8 @@ export class SyncService {
         );
     }
 
+    public static getAllExt() {
+        return PluginService.CreateExtensionList();
+    }
 
 }

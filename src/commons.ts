@@ -27,3 +27,7 @@ export async function showInputBox() {
     vscode.window.showInformationMessage(`Got: ${result}`);
     return result;
 }
+
+export function writeToFile(filePath: string) {
+
+}

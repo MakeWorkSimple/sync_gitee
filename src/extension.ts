@@ -9,6 +9,8 @@ import { ExtensionInformation } from './service/plugin.service';
 import * as nls from 'vscode-nls';
 import { Commons, showInputBox } from './commons';
 import { Context } from 'mocha';
+import { sync } from 'glob';
+import { writeFile } from 'fs';
 const localize = nls.config({ messageFormat: nls.MessageFormat.file })();
 // import { extensions } from "vscode";
 // this method is called when your extension is activated
@@ -31,10 +33,16 @@ export function activate(context: vscode.ExtensionContext) {
 	// The commandId parameter must match the command field in package.json
 	let push = vscode.commands.registerCommand('extension.uploadSetting', () => {
 		// The code you place here will be executed every time your command is executed
-		giteeService.postGist(environment.FILE_SETTING, environment.FILE_SETTING_NAME, vscode.window.showInformationMessage);
-		vscode.window.showInformationMessage(environment.FILE_EXTENSION);
-		giteeService.postGist(environment.FILE_EXTENSION, environment.FILE_EXTENSION_NAME, vscode.window.showInformationMessage);
+		// upload user's global settings 
+		// giteeService.postGist(environment.FILE_SETTING, environment.FILE_SETTING_NAME, vscode.window.showInformationMessage);
 
+		// upload user's extends file
+		// giteeService.postGist(environment.FILE_EXTENSION, environment.FILE_EXTENSION_NAME, vscode.window.showInformationMessage);
+		const test_path = '/Users/chenxin/tools/vs_plugin/simple-extension/test.json';
+		const allExts = SyncService.getAllExt();
+		writeFile(test_path, JSON.stringify(allExts, null, 2), (err) => {
+			console.log(err);
+		});
 	});
 
 	let pull = vscode.commands.registerCommand('extension.downloadSetting', async () => {
