@@ -7,7 +7,8 @@ import { GiteeOAuthService } from './service/gitee.oauth.service';
 import { SyncService } from './service/sync';
 import { ExtensionInformation } from './service/plugin.service';
 import * as nls from 'vscode-nls';
-import { Commons } from './common';
+import { Commons, showInputBox } from './commons';
+import { Context } from 'mocha';
 const localize = nls.config({ messageFormat: nls.MessageFormat.file })();
 // import { extensions } from "vscode";
 // this method is called when your extension is activated
@@ -36,7 +37,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 	});
 
-	let pull = vscode.commands.registerCommand('extension.downloadSetting', () => {
+	let pull = vscode.commands.registerCommand('extension.downloadSetting', async () => {
 		// The code you place here will be executed every time your command is executed
 		// download user settings file
 		// giteeService.fetchGist(environment.FILE_SETTING, environment.FILE_SETTING_NAME, vscode.window.showInformationMessage);
@@ -45,14 +46,42 @@ export function activate(context: vscode.ExtensionContext) {
 		// install extendtion 
 		// SyncService.installExt(environment.FILE_EXTENSION, vscode.window.showInformationMessage);
 
-		Commons.initCommons();
-		Commons.outPut('-----------');
-		Commons.outPut('-----2-----');
-		Commons.outPut('-----3-----');
+		// how to use output
+		// Commons.initCommons();
+		// Commons.outPut('-----------');
+		// Commons.outPut('-----2-----');
+		// Commons.outPut('-----3-----');
+
+		// use intput box
+
+
+		// const options: { [key: string]: (context: vscode.ExtensionContext) => Promise<any> } = {
+		// 	showInputBox,
+		// };
+		// const quickPick = vscode.window.createQuickPick();
+		// quickPick.items = Object.keys(options).map(label => ({ label }));
+		// quickPick.onDidChangeSelection(selection => {
+		// 	if (selection[0]) {
+
+		// 		options[selection[0].label](context).then(data => {
+
+		// 			Commons.outPut(`-------${data}-------`);
+		// 			return data;
+
+		// 		}
+		// 		).catch(console.error);
+		// 	}
+		// });
+		// quickPick.onDidHide(() => quickPick.dispose());
+		// quickPick.show();
+
+		// let set_value = 10;
+		// Commons.outPut(`-------${set_value}-------`);
 	});
 
 	context.subscriptions.push(push);
 	context.subscriptions.push(pull);
+
 }
 
 // this method is called when your extension is deactivated
