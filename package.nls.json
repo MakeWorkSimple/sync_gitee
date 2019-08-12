@@ -1,5 +1,6 @@
 {
     "cmd.download.settings.title": "download setting",
     "cmd.upload.settings.title": "upload setting",
-    "ext.config.gist": "config gitee gist"
+    "ext.config.gist": "config gitee gist",
+    "ext.config.access_token": "config gitee access_token"
 }

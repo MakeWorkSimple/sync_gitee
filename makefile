@@ -1,0 +1,2 @@
+build:
+	vsce package

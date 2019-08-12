@@ -1,8 +1,8 @@
 {
 	"name": "gitee-code-settings-sync",
-	"displayName": "simple",
-	"description": "just test",
-	"version": "0.0.1",
+	"displayName": "code settings sync",
+	"description": "code settings upload to gitee",
+	"version": "0.0.3",
 	"publisher": "Alex",
 	"author": {
 		"name": "Alex"
@@ -35,6 +35,11 @@
 					"type": "string",
 					"default": "",
 					"description": "%ext.config.gist%"
+				},
+				"gitee.access_token": {
+					"type": "string",
+					"default": "",
+					"description": "%ext.config.access_token%"
 				}
 			}
 		}

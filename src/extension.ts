@@ -40,8 +40,9 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.window.showInformationMessage("environment.FILE_EXTENSION");
 		// giteeService.fetchGist(environment.FILE_SETTING, environment.FILE_SETTING_NAME, vscode.window.showInformationMessage);
 		// giteeService.fetchGist(environment.FILE_EXTENSION, environment.FILE_EXTENSION_NAME, vscode.window.showInformationMessage);
-		// let extsinfo = [ExtensionInformation.fromJSON(JSON.stringify({ name: 'vue-snippets', publisher: 'hollowtree' }))];
-		SyncService.isntallExt('test', vscode.window.showInformationMessage);
+
+
+		SyncService.installExt(environment.FILE_EXTENSION, vscode.window.showInformationMessage);
 
 	});
 
