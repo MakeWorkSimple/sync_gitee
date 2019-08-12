@@ -8,6 +8,7 @@ export class Environment {
     public PATH: string = '';
     public FILE_SETTING: string = '';
     public USER_FOLDER: string = '';
+    public FILE_EXTENSION: string = '';
 
     public FILE_SETTING_NAME: string = 'settings.json';
 
@@ -15,7 +16,7 @@ export class Environment {
     // public FILE_KEYBINDING_NAME: string = "keybindings.json";
     // public FILE_KEYBINDING_MAC: string = "keybindingsMac.json";
     // public FILE_KEYBINDING_DEFAULT: string = "keybindings.json";
-    // public FILE_EXTENSION_NAME: string = "extensions.json";
+    public FILE_EXTENSION_NAME: string = "extensions.json";
     // public FILE_LOCALE_NAME: string = "locale.json";
     // public FILE_SYNC_LOCK_NAME: string = "sync.lock";
 
@@ -31,6 +32,6 @@ export class Environment {
         );
         this.USER_FOLDER = resolve(this.PATH, "User").concat(normalize("/"));
         this.FILE_SETTING = this.USER_FOLDER.concat(this.FILE_SETTING_NAME);
-
+        this.FILE_EXTENSION = this.USER_FOLDER.concat(this.FILE_EXTENSION_NAME);
     }
 }

@@ -3,11 +3,23 @@
  * Licensed under the MIT License. See License.txt in the project root for license information.
  * ------------------------------------------------------------------------------------------ */
 import * as vscode from 'vscode';
-import * as nls from 'vscode-nls';
+// import * as nls from 'vscode-nls';
 
-const localize = nls.loadMessageBundle();
+// const localize = nls.loadMessageBundle();
+import { ExtensionInformation, PluginService } from "./plugin.service";
 
-export function syncCommand() {
-    const message = localize('cmd.upload.settings.title', 'cmd.upload.settings.title');
-    // vscode.window.showInformationMessage(message);
+export class SyncService {
+    public static async isntallExt(exts: string, callback: (msg: string) => any) {
+        let name = 'hollowtree.vue-snippets';
+        await vscode.commands.executeCommand(
+            "workbench.extensions.installExtension",
+            name
+        );
+        // PluginService.InstallWithAPI(exts, (info) => {
+        //     console.log(info);
+        //     console.log('set install with api');
+
+        // });
+    }
+
 }

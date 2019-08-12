@@ -62,7 +62,6 @@
 	},
 	"dependencies": {
 		"express": "^4.16.4",
-		"form-data": "^2.5.0",
 		"node-fetch": "^2.5.0",
 		"fs-extra": "^8.0.1",
 		"vscode-nls": "^3.2.5"

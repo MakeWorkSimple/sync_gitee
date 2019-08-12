@@ -1,18 +1,13 @@
-import { URL, URLSearchParams } from "url";
-import { Server } from "http";
-import { createReadStream, readFile, writeFile } from 'fs';
+import { readFile, writeFile } from 'fs';
 import fetch from "node-fetch";
 import * as express from "express";
-import { resolve } from "dns";
-import * as vscode from 'vscode';
+
 
 export class GiteeOAuthService {
-    public app: express.Express;
-    // public access_token: string;
-    // public server: Server;
+
     constructor(public access_token: any, public gist: any) {
-        this.app = express();
-        this.app.use(express.json(), express.urlencoded({ extended: false }));
+        // this.app = express();
+        // this.app.use(express.json(), express.urlencoded({ extended: false }));
         this.access_token = access_token;
         this.gist = gist;
     }
@@ -30,18 +25,18 @@ export class GiteeOAuthService {
                 // body: params
             }).then(
                 res => res.text()
-            ).then(host)
-    };
+            ).then(host);
+    }
 
     public postGist(source_path: string, source_name: string, callback: (msg: string) => any) {
-        const url = `https://gitee.com/api/v5/gists/${this.gist}`
+        const url = `https://gitee.com/api/v5/gists/${this.gist}`;
         function readfile(path: string) {
             return new Promise((resolve, reject) => {
                 readFile(path, 'utf8', (err, data) => {
                     if (err) {
                         console.log(err);
                         reject(err);
-                    };
+                    }
                     resolve(data);
                 });
             });
@@ -66,14 +61,14 @@ export class GiteeOAuthService {
                         headers: { 'Content-Type': 'application/json' },
                     }).then(
                         res => res.text()
-                    ).then(callback)
+                    ).then(callback);
             }
-        )
+        );
 
     }
 
     public fetchGist(source_path: string, source_name: string, callback: (msg: string) => any) {
-        var url = `https://gitee.com/api/v5/gists?access_token=${this.access_token}&page=1&per_page=20`
+        var url = `https://gitee.com/api/v5/gists?access_token=${this.access_token}&page=1&per_page=20`;
 
         fetch(url,
             {
@@ -86,19 +81,19 @@ export class GiteeOAuthService {
                 let my_discribtion: any;
                 result.forEach((item: any) => {
                     if (item.id === this.gist) {
-                        my_discribtion = item
+                        my_discribtion = item;
                     }
-                })
+                });
                 return my_discribtion.files;
             }
         ).then((files) => {
             console.log(files);
             let content = files[source_name].content;
             writeFile(source_path, content, (err) => {
-                console.log(err)
+                console.log(err);
             });
-            return content
+            return content;
         }
-        ).then(callback)
+        ).then(callback);
     }
 }
