@@ -2,7 +2,7 @@
 	"name": "gitee-code-settings-sync",
 	"displayName": "code settings sync",
 	"description": "code settings upload to gitee",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"publisher": "Alex",
 	"icon": "images/logo.png",
 	"author": {

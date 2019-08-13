@@ -1,66 +1,39 @@
-# simple-extension README
+# Settings Sync To Gitee
 
 做一个简单同步vscode 配置的插件，因为github gist不知原因的
 不可访问，所以国内会同步到码云，稍后会放出教程。
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
-
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+用于同步vscode设置到码云(gitee)
+1. 设置gist地址
+2. 设置access_token用于获取代码片段权限
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
+* `gitee.gist`: 设置gist的地址
+* `gitee.access_token`: 设置登陆权限
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
+未做特别分页处理，如果设置的代码没有在前20条则会获取失败，但是不会影响上传。
+本次上传会连gitee配置同时上传，用于个人同步代码，如果需要不同人共用配置，则会加到下个版本
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
+联系地址（*bufubaoni@163.com*）
 
-### 1.0.0
+### 0.1.0
 
-Initial release of ...
+1. 上传用户设置
+2. 上传用户扩展设置
+3. 上传用户的代码片段
+4. 上传用户的快捷键设置
 
-### 1.0.1
 
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
 
 -----------------------------------------------------------------------------------------------------------
 
-## Working with Markdown
+## 
 
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
 
 **Enjoy!**

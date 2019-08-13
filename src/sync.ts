@@ -7,6 +7,7 @@ import { readFile, unlink } from 'fs-extra';
 import { GiteeOAuthService } from './service/gitee.oauth.service';
 import { Environment } from './environmentPath';
 import * as Zip from "adm-zip";
+import { OsType } from "./enums";
 
 export class SyncService {
     public static zip = new Zip();
@@ -59,16 +60,31 @@ export class SyncService {
         giteeServer.postGist(environment.FILE_SETTING, environment.FILE_SETTING_NAME, false, callback);
         giteeServer.postGist(environment.FILE_EXTENSION, environment.FILE_EXTENSION_NAME, false, callback);
 
+        // upload keyboard bind
+        var remoteKeyboardFileName = environment.FILE_KEYBINDING_NAME;
+        if (environment.OsType === OsType.Mac) {
+            remoteKeyboardFileName = environment.FILE_KEYBINDING_MAC;
+        }
+        giteeServer.postGist(environment.FILE_KEYBINDING, remoteKeyboardFileName, false, callback);
+
         // upload snippets folder
         var snipperZipFile = SyncService.zipFold(environment, callback);
         giteeServer.postGist(snipperZipFile, environment.FILE_SNIPPETS_ZIP_NAME, true, callback);
+
+
     }
     public static async downodCMD(giteeServer: GiteeOAuthService, environment: Environment, callback: (msg: string) => any) {
         giteeServer.fetchGist(environment.FILE_SETTING, environment.FILE_SETTING_NAME, false, callback);
         giteeServer.fetchGist(environment.FILE_EXTENSION, environment.FILE_EXTENSION_NAME, false, callback);
+        // down keyboard binding
+        var remoteKeyboardFileName = environment.FILE_KEYBINDING_NAME;
+        if (environment.OsType === OsType.Mac) {
+            remoteKeyboardFileName = environment.FILE_KEYBINDING_MAC;
+        }
+        giteeServer.fetchGist(environment.FILE_KEYBINDING, remoteKeyboardFileName, false, callback);
 
         SyncService.installExtensions(environment.FILE_EXTENSION, callback);
-        // down snippets zip
+        // // down snippets zip
         await giteeServer.fetchGist(environment.FILE_SNIPPETS_ZIP, environment.FILE_SNIPPETS_ZIP_NAME, true, callback);
         SyncService.unZipFold(environment, callback);
     }
