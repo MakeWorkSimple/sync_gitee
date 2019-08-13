@@ -3,7 +3,7 @@
 	"displayName": "code settings sync",
 	"description": "code settings upload to gitee",
 	"version": "0.1.0",
-	"publisher": "Alex",
+	"publisher": "Alex-Chen",
 	"icon": "images/logo.png",
 	"author": {
 		"name": "Alex"
