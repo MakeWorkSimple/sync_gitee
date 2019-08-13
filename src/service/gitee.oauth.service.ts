@@ -67,7 +67,9 @@ export class GiteeOAuthService {
                         body: JSON.stringify(data),
                         headers: { 'Content-Type': 'application/json' },
                     }).then(
-                        res => res.text()
+                        res => {
+                            return source_name;
+                        }
                     ).then(callback);
             }
         );
@@ -94,7 +96,7 @@ export class GiteeOAuthService {
                 return my_discribtion.files;
             }
         ).then((files) => {
-            console.log(files);
+            // console.log(files);
             let content = files[source_name].content;
 
             if (isBase64) {
@@ -109,7 +111,7 @@ export class GiteeOAuthService {
             });
 
 
-            return content;
+            return source_name;
         }
         ).then(callback);
     }

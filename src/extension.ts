@@ -30,16 +30,15 @@ export function activate(context: vscode.ExtensionContext) {
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
-	let push = vscode.commands.registerCommand('extension.uploadSetting', () => {
+	let push = vscode.commands.registerCommand('extension.giteeUploadSetting', () => {
 		// The code you place here will be executed every time your command is executed
 		SyncService.uploadCMD(giteeService, environment, Commons.outPut);
-		// vscode.window.showInformationMessage(environment.USER_FOLDER);
 
 
 
 	});
 
-	let pull = vscode.commands.registerCommand('extension.downloadSetting', async () => {
+	let pull = vscode.commands.registerCommand('extension.giteeDownloadSetting', async () => {
 		// The code you place here will be executed every time your command is executed
 		SyncService.downodCMD(giteeService, environment, Commons.outPut);
 	});

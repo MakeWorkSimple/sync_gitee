@@ -28,11 +28,11 @@
 	"contributes": {
 		"commands": [
 			{
-				"command": "extension.uploadSetting",
+				"command": "extension.giteeUploadSetting",
 				"title": "%cmd.upload.settings.title%"
 			},
 			{
-				"command": "extension.downloadSetting",
+				"command": "extension.giteeDownloadSetting",
 				"title": "%cmd.download.settings.title%"
 			}
 		],
