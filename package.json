@@ -2,7 +2,7 @@
 	"name": "gitee-code-settings-sync",
 	"displayName": "code settings sync",
 	"description": "code settings upload to gitee",
-	"version": "0.0.5",
+	"version": "0.1.0",
 	"publisher": "Alex",
 	"icon": "images/logo.png",
 	"author": {
@@ -16,6 +16,13 @@
 	],
 	"activationEvents": [
 		"*"
+	],
+	"keywords": [
+		"gitee-code-settings-sync",
+		"vscode-settings-sync",
+		"code-settings-sync",
+		"settings-sync",
+		"gitee-sync"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
