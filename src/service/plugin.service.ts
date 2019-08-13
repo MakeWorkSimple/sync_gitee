@@ -197,7 +197,7 @@ export class PluginService {
             ignoredExtensions
         );
         if (missingExtensions.length === 0) {
-            notificationCallBack("Sync : No Extensions needs to be installed.");
+            notificationCallBack("Gitee : No Extensions needs to be installed.");
             return [];
         }
         addedExtensions = await PluginService.InstallWithAPI(
