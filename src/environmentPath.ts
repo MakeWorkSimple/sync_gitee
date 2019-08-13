@@ -21,8 +21,11 @@ export class Environment {
     // public FILE_SYNC_LOCK_NAME: string = "sync.lock";
 
     // public FILE_CLOUDSETTINGS_NAME: string = "cloudSettings";
+    public FOLDER_SNIPPETS_NAME: string = 'snippets';
+    public FILE_SNIPPETS_ZIP_NAME: string = 'snippets.zip';
+    public FOLDER_SNIPPETS: string = '';
 
-    // public FOLDER_SNIPPETS: string = '';
+    public FILE_SNIPPETS_ZIP: string = '';
 
     constructor(context: ExtensionContext) {
         // state.context.globalState.update("_", undefined); 
@@ -33,5 +36,7 @@ export class Environment {
         this.USER_FOLDER = resolve(this.PATH, "User").concat(normalize("/"));
         this.FILE_SETTING = this.USER_FOLDER.concat(this.FILE_SETTING_NAME);
         this.FILE_EXTENSION = this.USER_FOLDER.concat(this.FILE_EXTENSION_NAME);
+        this.FOLDER_SNIPPETS = this.USER_FOLDER.concat("snippets");
+        this.FILE_SNIPPETS_ZIP = this.USER_FOLDER.concat(this.FILE_SNIPPETS_ZIP_NAME);
     }
 }

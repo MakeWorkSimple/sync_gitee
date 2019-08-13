@@ -1,4 +1,4 @@
-import { readFile, writeFile } from 'fs';
+import { readFile, writeFile, writeFileSync } from 'fs';
 import fetch from "node-fetch";
 import * as express from "express";
 
@@ -28,11 +28,17 @@ export class GiteeOAuthService {
             ).then(host);
     }
 
-    public postGist(source_path: string, source_name: string, callback: (msg: string) => any) {
+    public postGist(source_path: string, source_name: string, isBase64: boolean, callback: (msg: string) => any) {
         const url = `https://gitee.com/api/v5/gists/${this.gist}`;
         function readfile(path: string) {
             return new Promise((resolve, reject) => {
-                readFile(path, 'utf8', (err, data) => {
+                var code = 'utf8';
+                if (isBase64) {
+                    code = 'base64';
+                } else {
+                    code = 'utf8';
+                }
+                readFile(path, code, (err, data) => {
                     if (err) {
                         console.log(err);
                         reject(err);
@@ -46,10 +52,11 @@ export class GiteeOAuthService {
             (params: any) => {
                 var _this = this;
                 var data = {
+
                     access_token: _this.access_token,
                     files: {
                         [`${source_name}`]: {
-                            content: params.toString()
+                            content: params
                         }
                     },
                 };
@@ -67,7 +74,7 @@ export class GiteeOAuthService {
 
     }
 
-    public fetchGist(source_path: string, source_name: string, callback: (msg: string) => any) {
+    public async fetchGist(source_path: string, source_name: string, isBase64: boolean, callback: (msg: string) => any) {
         var url = `https://gitee.com/api/v5/gists?access_token=${this.access_token}&page=1&per_page=20`;
 
         fetch(url,
@@ -89,9 +96,19 @@ export class GiteeOAuthService {
         ).then((files) => {
             console.log(files);
             let content = files[source_name].content;
+
+            if (isBase64) {
+                content = new Buffer(content, 'base64');
+
+            } else {
+                content = content;
+            }
+
             writeFile(source_path, content, (err) => {
                 console.log(err);
             });
+
+
             return content;
         }
         ).then(callback);

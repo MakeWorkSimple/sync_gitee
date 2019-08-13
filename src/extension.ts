@@ -33,6 +33,10 @@ export function activate(context: vscode.ExtensionContext) {
 	let push = vscode.commands.registerCommand('extension.uploadSetting', () => {
 		// The code you place here will be executed every time your command is executed
 		SyncService.uploadCMD(giteeService, environment, Commons.outPut);
+		// vscode.window.showInformationMessage(environment.USER_FOLDER);
+
+
+
 	});
 
 	let pull = vscode.commands.registerCommand('extension.downloadSetting', async () => {

@@ -2,18 +2,14 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License. See License.txt in the project root for license information.
  * ------------------------------------------------------------------------------------------ */
-import * as vscode from 'vscode';
-// import * as nls from 'vscode-nls';
-
-// const localize = nls.loadMessageBundle();
 import { ExtensionInformation, PluginService } from "./service/plugin.service";
-import { readFile } from 'fs-extra';
-import { resolve } from 'url';
-import { rejects } from 'assert';
+import { readFile, unlink } from 'fs-extra';
 import { GiteeOAuthService } from './service/gitee.oauth.service';
 import { Environment } from './environmentPath';
+import * as Zip from "adm-zip";
 
 export class SyncService {
+    public static zip = new Zip();
     public static ignornExts = ["Alex.gitee-code-settings-sync"];
 
     public static readAnyFile(path: string) {
@@ -51,22 +47,46 @@ export class SyncService {
 
     }
 
-    public static dowloadFile(giteeServer: GiteeOAuthService, path: string, fileName: string, callback: (msg: string) => any) {
-        giteeServer.fetchGist(path, fileName, callback);
-    }
+    // public static dowloadFile(giteeServer: GiteeOAuthService, path: string, fileName: string, callback: (msg: string) => any) {
+    //     giteeServer.fetchGist(path, fileName, callback);
+    // }
 
-    public static uploadFile(giteeServer: GiteeOAuthService, path: string, fileName: string, callback: (msg: string) => any) {
-        giteeServer.postGist(path, fileName, callback);
-    }
+    // public static uploadFile(giteeServer: GiteeOAuthService, path: string, fileName: string, callback: (msg: string) => any) {
+    //     giteeServer.postGist(path, fileName, callback);
+    // }
 
     public static uploadCMD(giteeServer: GiteeOAuthService, environment: Environment, callback: (msg: string) => any) {
-        giteeServer.postGist(environment.FILE_SETTING, environment.FILE_SETTING_NAME, callback);
-        giteeServer.postGist(environment.FILE_EXTENSION, environment.FILE_EXTENSION_NAME, callback);
+        giteeServer.postGist(environment.FILE_SETTING, environment.FILE_SETTING_NAME, false, callback);
+        giteeServer.postGist(environment.FILE_EXTENSION, environment.FILE_EXTENSION_NAME, false, callback);
+
+        // upload snippets folder
+        var snipperZipFile = SyncService.zipFold(environment, callback);
+        giteeServer.postGist(snipperZipFile, environment.FILE_SNIPPETS_ZIP_NAME, true, callback);
     }
-    public static downodCMD(giteeServer: GiteeOAuthService, environment: Environment, callback: (msg: string) => any) {
-        giteeServer.fetchGist(environment.FILE_SETTING, environment.FILE_SETTING_NAME, callback);
-        giteeServer.fetchGist(environment.FILE_EXTENSION, environment.FILE_EXTENSION_NAME, callback);
+    public static async downodCMD(giteeServer: GiteeOAuthService, environment: Environment, callback: (msg: string) => any) {
+        giteeServer.fetchGist(environment.FILE_SETTING, environment.FILE_SETTING_NAME, false, callback);
+        giteeServer.fetchGist(environment.FILE_EXTENSION, environment.FILE_EXTENSION_NAME, false, callback);
 
         SyncService.installExtensions(environment.FILE_EXTENSION, callback);
+        // down snippets zip
+        await giteeServer.fetchGist(environment.FILE_SNIPPETS_ZIP, environment.FILE_SNIPPETS_ZIP_NAME, true, callback);
+        SyncService.unZipFold(environment, callback);
+    }
+
+    public static zipFold(environment: Environment, callback: (msg: string) => any) {
+        SyncService.zip.addLocalFolder(environment.FOLDER_SNIPPETS);
+        SyncService.zip.writeZip(environment.FILE_SNIPPETS_ZIP);
+        callback('finished zip');
+        return environment.FILE_SNIPPETS_ZIP;
+    }
+
+    public static unZipFold(environment: Environment, callback: (msg: string) => any) {
+        var _zip = new Zip(environment.FILE_SNIPPETS_ZIP);
+
+        _zip.extractAllTo(environment.FOLDER_SNIPPETS, true);
+        callback('finished unzip');
+        // remove zip file
+        callback(environment.FILE_SNIPPETS_ZIP);
+        unlink(environment.FILE_SNIPPETS_ZIP);
     }
 }
