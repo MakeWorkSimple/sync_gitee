@@ -2,16 +2,18 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License. See License.txt in the project root for license information.
  * ------------------------------------------------------------------------------------------ */
-import { ExtensionInformation, PluginService } from "./service/plugin.service";
 import { readFile, unlink } from 'fs-extra';
+import { writeFile } from 'fs';
+import * as Zip from "adm-zip";
+
+import { ExtensionInformation, PluginService } from "./service/plugin.service";
 import { GiteeOAuthService } from './service/gitee.oauth.service';
 import { Environment } from './environmentPath';
-import * as Zip from "adm-zip";
 import { OsType } from "./enums";
 
 export class SyncService {
     public static zip = new Zip();
-    public static ignornExts = ["Alex.gitee-code-settings-sync"];
+    public static ignornExts = ["Alex-Chen.gitee-code-settings-sync"];
 
     public static readAnyFile(path: string) {
         return new Promise((resolve, reject) => {
@@ -39,6 +41,11 @@ export class SyncService {
         return PluginService.CreateExtensionList();
     }
 
+    public static writeFile(path: string, content: string) {
+        writeFile(path, content, (err: any) => {
+            console.log(err);
+        });
+    }
     public static installExtensions(extSetingPath: string, callback: (msg: string) => any) {
         SyncService.readExtFile(extSetingPath).then(
             (exts: any) => {
@@ -48,16 +55,12 @@ export class SyncService {
 
     }
 
-    // public static dowloadFile(giteeServer: GiteeOAuthService, path: string, fileName: string, callback: (msg: string) => any) {
-    //     giteeServer.fetchGist(path, fileName, callback);
-    // }
-
-    // public static uploadFile(giteeServer: GiteeOAuthService, path: string, fileName: string, callback: (msg: string) => any) {
-    //     giteeServer.postGist(path, fileName, callback);
-    // }
 
     public static uploadCMD(giteeServer: GiteeOAuthService, environment: Environment, callback: (msg: string) => any) {
         giteeServer.postGist(environment.FILE_SETTING, environment.FILE_SETTING_NAME, false, callback);
+
+        var extendsList = SyncService.getAllExt();
+        SyncService.writeFile(environment.FILE_EXTENSION, JSON.stringify(extendsList, null, 2));
         giteeServer.postGist(environment.FILE_EXTENSION, environment.FILE_EXTENSION_NAME, false, callback);
 
         // upload keyboard bind

@@ -2,7 +2,7 @@
 	"name": "gitee-code-settings-sync",
 	"displayName": "code settings sync",
 	"description": "code settings upload to gitee",
-	"version": "0.1.1",
+	"version": "0.1.3",
 	"publisher": "Alex-Chen",
 	"icon": "images/logo.png",
 	"author": {
@@ -10,6 +10,14 @@
 	},
 	"engines": {
 		"vscode": "^1.36.0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/MakeWorkSimple/sync_gitee.git"
+	},
+	"bugs": {
+		"url": "https://github.com/MakeWorkSimple/sync_gitee/issues",
+		"email": "bufubaoni@163.com"
 	},
 	"categories": [
 		"Other"
@@ -22,7 +30,8 @@
 		"vscode-settings-sync",
 		"code-settings-sync",
 		"settings-sync",
-		"gitee-sync"
+		"gitee-sync",
+		"gitee-oschina"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
