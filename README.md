@@ -13,7 +13,7 @@
 
 https://gitee.com/gists > 我的代码 > +代码片段 > 填写相应内容
 
-然后会在 ![图片](https://github.com/MakeWorkSimple/sync_gitee/blob/master/images/gists.png) 这里看到 gist id
+然后会在 ![图片](images/gists.png) 这里看到 gist id
 
 注意: 
 > gitee问题不能创建空gist，所以一定要创建一个文件
