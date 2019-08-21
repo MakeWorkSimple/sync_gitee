@@ -13,20 +13,23 @@
 
 https://gitee.com/gists > 我的代码 > +代码片段 > 填写相应内容
 
-然后会在 [![图片](https://github.com/MakeWorkSimple/sync_gitee/blob/master/images/gists.png)]这里看到 gist id
+然后会在 ![图片](https://github.com/MakeWorkSimple/sync_gitee/blob/master/images/gists.png) 这里看到 gist id
 
 注意: 
 > gitee问题不能创建空gist，所以一定要创建一个文件
+
 > 新创建的gists会有创建不成功现象，过几分钟再试就可以了。
 
 ### 生成access_token
+
 设置 > 私人令牌 > +生成新令牌
+
 默认会有全部权限，这里只勾选gists 即可，user_info 权限是必选。
 
 ## Extension Settings
 
-* `gitee.gist`: 设置gist的地址
-* `gitee.access_token`: 设置登陆权限
+* `gitee.gist`: 设置 gist id
+* `gitee.access_token`: 设置有gists权限的私人令牌
 
 ## Known Issues
 
