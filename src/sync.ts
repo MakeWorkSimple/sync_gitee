@@ -27,16 +27,6 @@ export class SyncService {
         });
     }
 
-    public static async readExtFile(path: string) {
-        return SyncService.readAnyFile(path).then(
-            (data: any) => {
-                let exts = ExtensionInformation.fromJSONList(data);
-                return exts;
-            }
-        );
-
-    }
-
     public static getAllExt() {
         return PluginService.CreateExtensionList();
     }
@@ -47,7 +37,7 @@ export class SyncService {
         });
     }
     public static installExtensions(extSetingPath: string, callback: (msg: string) => any) {
-        SyncService.readExtFile(extSetingPath).then(
+        SyncService.readAnyFile(extSetingPath).then(
             (exts: any) => {
                 PluginService.InstallExtensions(exts, SyncService.ignornExts, callback);
             }
