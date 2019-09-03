@@ -26,6 +26,19 @@ https://gitee.com/gists > 我的代码 > +代码片段 > 填写相应内容
 
 默认会有全部权限，这里只勾选gists 即可，user_info 权限是必选。
 
+### 使用方法
+
+#### 上传配置
+
+ 命令行中 ![upload](images/upload.png) 
+ 
+> 命令为 `upload setting`
+#### 下载配置
+
+ ![upload](images/download.png) 
+ 
+ 下载配置
+ > 命令为 `download setting`
 ## Extension Settings
 
 * `gitee.gist`: 设置 gist id
