@@ -33,12 +33,17 @@ https://gitee.com/gists > 我的代码 > +代码片段 > 填写相应内容
  命令行中 ![upload](images/upload.png) 
  
 > 命令为 `upload setting`
+
+即可看到上传信息 
+ ![msg](images/msg.png) 
+
 #### 下载配置
 
  ![upload](images/download.png) 
  
  下载配置
  > 命令为 `download setting`
+
 ## Extension Settings
 
 * `gitee.gist`: 设置 gist id
