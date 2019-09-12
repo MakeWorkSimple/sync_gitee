@@ -31,7 +31,13 @@ export class ExtensionInformation {
         try {
             // TODO: JSON.parse may throw error
             // Throw custom error should be more friendly
-            const list = JSON.parse(text);
+            var list = null;
+            if (typeof (text) === 'string') {
+                list = JSON.parse(text);
+            } else {
+                list = text;
+            }
+            // const list = JSON.parse(text);
             list.forEach((obj: any) => {
                 const meta = new ExtensionMetadata(
                     obj.metadata.galleryApiUrl,
