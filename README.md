@@ -13,7 +13,7 @@
 
 https://gitee.com/gists > 我的代码 > +代码片段 > 填写相应内容
 
-然后会在 ![图片](images/gists.png) 这里看到 gist id
+然后会在 ![图片](https://raw.githubusercontent.com/MakeWorkSimple/sync_gitee/master/images/gists.png) 这里看到 gist id
 
 注意: 
 > gitee问题不能创建空gist，所以一定要创建一个文件
@@ -30,16 +30,16 @@ https://gitee.com/gists > 我的代码 > +代码片段 > 填写相应内容
 
 #### 上传配置
 
- 命令行中 ![upload](images/upload.png) 
+ 命令行中 ![upload](https://raw.githubusercontent.com/MakeWorkSimple/sync_gitee/master/images/upload.png) 
  
 > 命令为 `upload setting`
 
 即可看到上传信息 
- ![msg](images/msg.png) 
+ ![msg](https://raw.githubusercontent.com/MakeWorkSimple/sync_gitee/master/images/msg.png) 
 
 #### 下载配置
 
- ![upload](images/download.png) 
+ ![upload](https://raw.githubusercontent.com/MakeWorkSimple/sync_gitee/master/images/download.png) 
  
  下载配置
  > 命令为 `download setting`
