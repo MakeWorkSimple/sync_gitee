@@ -31,7 +31,10 @@
 		"code-settings-sync",
 		"settings-sync",
 		"gitee-sync",
-		"gitee-oschina"
+		"gitee-oschina",
+		"码云",
+		"同步",
+		"配置"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
