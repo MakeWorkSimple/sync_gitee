@@ -6,23 +6,15 @@ import * as express from "express";
 export class GiteeOAuthService {
 
     constructor(public access_token: any, public gist: any) {
-        // this.app = express();
-        // this.app.use(express.json(), express.urlencoded({ extended: false }));
         this.access_token = access_token;
         this.gist = gist;
     }
 
     public getGist(access_token: string, host: (json: string) => any) {
         const source_url = `https://gitee.com/api/v5/gists?access_token=${this.access_token}`;
-        // const params = new URLSearchParams();
-
-        // var params = { access_token: 'fff01e01ca9b35c31a8d9a7428aea009' };
-        // var url = new URL(source_url);
-        // Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
         fetch(source_url,
             {
                 method: 'get',
-                // body: params
             }).then(
                 res => res.text()
             ).then(host);
@@ -96,7 +88,6 @@ export class GiteeOAuthService {
                 return my_discribtion.files;
             }
         ).then((files) => {
-            // console.log(files);
             let content = files[source_name].content;
 
             if (isBase64) {

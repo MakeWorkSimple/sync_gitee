@@ -2,17 +2,12 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import { Environment } from './environmentPath';
-// import { state } from './state';
 import { GiteeOAuthService } from './service/gitee.oauth.service';
 import { SyncService } from './sync';
-import { ExtensionInformation } from './service/plugin.service';
 import * as nls from 'vscode-nls';
-import { Commons, showInputBox } from './commons';
-import { Context } from 'mocha';
-import { sync } from 'glob';
-import { writeFile } from 'fs';
+import { Commons } from './commons';
 const localize = nls.config({ messageFormat: nls.MessageFormat.file })();
-// import { extensions } from "vscode";
+
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
