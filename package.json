@@ -69,7 +69,12 @@
 		"compile": "tsc -p ./",
 		"watch": "tsc -watch -p ./",
 		"pretest": "npm run compile",
-		"test": "node ./out/test/runTest.js"
+		"test": "node ./out/test/runTest.js",
+		"build": "vsce package",
+		"clean": "rm *.vsix",
+		"install": "npm install",
+		"install-env": "npm install vsce",
+		"upgrade-env": "npm install -g vsce"
 	},
 	"devDependencies": {
 		"@types/adm-zip": "^0.4.32",
