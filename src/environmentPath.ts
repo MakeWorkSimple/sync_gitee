@@ -9,6 +9,7 @@ export class Environment {
     public FILE_SETTING: string = '';
     public USER_FOLDER: string = '';
     public FILE_EXTENSION: string = '';
+    public SYNC_LOCK: string = '';
 
     public FILE_SETTING_NAME: string = 'settings.json';
 
@@ -18,7 +19,7 @@ export class Environment {
     public FILE_KEYBINDING_DEFAULT: string = "keybindings.json";
     public FILE_EXTENSION_NAME: string = "extensions.json";
     // public FILE_LOCALE_NAME: string = "locale.json";
-    // public FILE_SYNC_LOCK_NAME: string = "sync.lock";
+    public FILE_SYNC_LOCK_NAME: string = "sync.lock";
 
     // public FILE_CLOUDSETTINGS_NAME: string = "cloudSettings";
     public FOLDER_SNIPPETS_NAME: string = 'snippets';
@@ -44,6 +45,7 @@ export class Environment {
         this.FILE_SNIPPETS_ZIP = this.USER_FOLDER.concat(this.FILE_SNIPPETS_ZIP_NAME);
         this.FILE_KEYBINDING = this.USER_FOLDER.concat(this.FILE_KEYBINDING_DEFAULT);
         this.OsType = process.platform as OsType;
+        this.SYNC_LOCK = this.USER_FOLDER.concat(this.FILE_SYNC_LOCK_NAME);
 
     }
 }

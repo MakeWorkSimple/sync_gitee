@@ -10,7 +10,10 @@ import { ExtensionInformation, PluginService } from "./service/plugin.service";
 import { GiteeOAuthService } from './service/gitee.oauth.service';
 import { Environment } from './environmentPath';
 import { OsType } from "./enums";
-
+import { eventNames } from 'cluster';
+import { ISyncLock } from "./models/state.model";
+import { type } from 'os';
+import { types } from 'util';
 export class SyncService {
     public static zip = new Zip();
     public static ignornExts = ["Alex-Chen.gitee-code-settings-sync"];
@@ -50,6 +53,20 @@ export class SyncService {
         giteeServer.postGist(environment.FILE_SETTING, environment.FILE_SETTING_NAME, false, callback);
 
         var extendsList = SyncService.getAllExt();
+        var uploadTime = new Date();
+
+        // upload sync.lock
+        // SyncService.readAnyFile(environment.SYNC_LOCK).then(
+        //     (lock: any) => {
+        //         let lk: ISyncLock = JSON.parse(lock);
+        //         console.info(lk);
+        //         console.info(lk.lastUploadTime);
+        //     }
+        // );
+        SyncService.writeFile(environment.SYNC_LOCK, JSON.stringify({ "lastUploadTime": uploadTime.toISOString() }, null, 2));
+        giteeServer.postGist(environment.SYNC_LOCK, environment.FILE_SYNC_LOCK_NAME, false, callback);
+
+        // upload extension setting
         SyncService.writeFile(environment.FILE_EXTENSION, JSON.stringify(extendsList, null, 2));
         giteeServer.postGist(environment.FILE_EXTENSION, environment.FILE_EXTENSION_NAME, false, callback);
 
@@ -63,7 +80,6 @@ export class SyncService {
         // upload snippets folder
         var snipperZipFile = SyncService.zipFold(environment, callback);
         giteeServer.postGist(snipperZipFile, environment.FILE_SNIPPETS_ZIP_NAME, true, callback);
-
 
     }
     public static async downodCMD(giteeServer: GiteeOAuthService, environment: Environment, callback: (msg: string) => any) {

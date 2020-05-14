@@ -62,7 +62,9 @@ export class GiteeOAuthService {
                         res => {
                             return source_name;
                         }
-                    ).then(callback);
+                    ).then(callback).catch(err => {
+                        callback('ERROR: ' + err);
+                    });
             }
         );
 

@@ -6,3 +6,7 @@ export interface IExtensionState {
     environment?: Environment;
     instanceID: string;
 }
+
+export interface ISyncLock {
+    lastUploadTime: string;
+}
