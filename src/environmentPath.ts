@@ -19,7 +19,7 @@ export class Environment {
     public FILE_KEYBINDING_DEFAULT: string = "keybindings.json";
     public FILE_EXTENSION_NAME: string = "extensions.json";
     // public FILE_LOCALE_NAME: string = "locale.json";
-    public FILE_SYNC_LOCK_NAME: string = "sync.lock";
+    public FILE_SYNC_LOCK_NAME: string = "syncGitee.lock";
 
     // public FILE_CLOUDSETTINGS_NAME: string = "cloudSettings";
     public FOLDER_SNIPPETS_NAME: string = 'snippets';
