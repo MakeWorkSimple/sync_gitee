@@ -50,7 +50,7 @@ export class SyncService {
 
 
     public static uploadCMD(giteeServer: GiteeOAuthService, environment: Environment, callback: (msg: string) => any) {
-        giteeServer.postGist(environment.FILE_SETTING, environment.FILE_SETTING_NAME, false, callback);
+        giteeServer.postGist(environment.FILE_SETTING, environment.FILE_SETTING_NAME, false, false, callback);
 
         var extendsList = SyncService.getAllExt();
         var uploadTime = new Date();
@@ -64,22 +64,22 @@ export class SyncService {
         //     }
         // );
         SyncService.writeFile(environment.SYNC_LOCK, JSON.stringify({ "lastUploadTime": uploadTime.toISOString() }, null, 2));
-        giteeServer.postGist(environment.SYNC_LOCK, environment.FILE_SYNC_LOCK_NAME, false, callback);
+        giteeServer.postGist(environment.SYNC_LOCK, environment.FILE_SYNC_LOCK_NAME, false, false, callback);
 
         // upload extension setting
         SyncService.writeFile(environment.FILE_EXTENSION, JSON.stringify(extendsList, null, 2));
-        giteeServer.postGist(environment.FILE_EXTENSION, environment.FILE_EXTENSION_NAME, false, callback);
+        giteeServer.postGist(environment.FILE_EXTENSION, environment.FILE_EXTENSION_NAME, false, true, callback);
 
         // upload keyboard bind
         var remoteKeyboardFileName = environment.FILE_KEYBINDING_NAME;
         if (environment.OsType === OsType.Mac) {
             remoteKeyboardFileName = environment.FILE_KEYBINDING_MAC;
         }
-        giteeServer.postGist(environment.FILE_KEYBINDING, remoteKeyboardFileName, false, callback);
+        giteeServer.postGist(environment.FILE_KEYBINDING, remoteKeyboardFileName, false, false, callback);
 
         // upload snippets folder
         var snipperZipFile = SyncService.zipFold(environment, callback);
-        giteeServer.postGist(snipperZipFile, environment.FILE_SNIPPETS_ZIP_NAME, true, callback);
+        giteeServer.postGist(snipperZipFile, environment.FILE_SNIPPETS_ZIP_NAME, true, true, callback);
 
     }
     public static async downodCMD(giteeServer: GiteeOAuthService, environment: Environment, callback: (msg: string) => any) {
@@ -92,7 +92,10 @@ export class SyncService {
         }
         giteeServer.fetchGist(environment.FILE_KEYBINDING, remoteKeyboardFileName, false, callback);
 
-        SyncService.installExtensions(environment.FILE_EXTENSION, callback);
+
+        giteeServer.fetchGistExtensions(environment.FILE_EXTENSION_NAME, SyncService.ignornExts, PluginService.InstallExtensions, callback);
+
+        // SyncService.installExtensions(environment.FILE_EXTENSION, callback);
         // // down snippets zip
         await giteeServer.fetchGist(environment.FILE_SNIPPETS_ZIP, environment.FILE_SNIPPETS_ZIP_NAME, true, callback);
         SyncService.unZipFold(environment, callback);
