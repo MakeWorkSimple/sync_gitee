@@ -52,7 +52,7 @@ export class ExtensionInformation {
                 item.name = obj.name;
                 item.publisher = obj.publisher;
                 item.version = obj.version;
-                console.log(`extension name -${item.name}`)
+                console.log(`extension name -${item.name}`);
                 if (item.name !== "code-settings-sync") {
                     extList.push(item);
                 }
