@@ -1,6 +1,8 @@
 import { readFile, writeFile, writeFileSync, unlink } from 'fs';
 import fetch from "node-fetch";
 import * as express from "express";
+import { resolve } from 'dns';
+import { rejects } from 'assert';
 
 
 export class GiteeOAuthService {
@@ -154,5 +156,38 @@ export class GiteeOAuthService {
 
         ).then(callback);
 
+    }
+
+
+    /**
+     * postGistV2
+        just update or post gist  */
+    public postGistV2(source: string, source_name: string, callback: (msg: string | any) => any) {
+        const url = `https://gitee.com/api/v5/gists/${this.gist}`;
+        var data = {
+            access_token: this.access_token,
+            files: {
+                [`${source_name}`]: {
+                    content: source
+                }
+            },
+        };
+        return new Promise((resolve, rejects) => {
+            fetch(url,
+                {
+                    method: 'PATCH',
+                    body: JSON.stringify(data),
+                    headers: { 'Content-Type': 'application/json' },
+                }).then(
+                    res => {
+                        callback(source_name);
+                        resolve(res);
+                    }
+                ).catch(err => {
+                    callback('ERROR: ' + err);
+                    rejects(err);
+                });
+        }
+        );
     }
 }
