@@ -50,25 +50,16 @@ export class SyncService {
 
 
     public static uploadCMD(giteeServer: GiteeOAuthService, environment: Environment, callback: (msg: string) => any) {
+        // upload settings.json
         giteeServer.postGist(environment.FILE_SETTING, environment.FILE_SETTING_NAME, false, false, callback);
-
-        var extendsList = SyncService.getAllExt();
         var uploadTime = new Date();
 
         // upload sync.lock
-        // SyncService.readAnyFile(environment.SYNC_LOCK).then(
-        //     (lock: any) => {
-        //         let lk: ISyncLock = JSON.parse(lock);
-        //         console.info(lk);
-        //         console.info(lk.lastUploadTime);
-        //     }
-        // );
-        SyncService.writeFile(environment.SYNC_LOCK, JSON.stringify({ "lastUploadTime": uploadTime.toISOString() }, null, 2));
-        giteeServer.postGist(environment.SYNC_LOCK, environment.FILE_SYNC_LOCK_NAME, false, false, callback);
+        giteeServer.postGistV2(JSON.stringify({ "lastUploadTime": uploadTime.toISOString() }, null, 2), environment.FILE_SYNC_LOCK_NAME, callback);
 
         // upload extension setting
-        SyncService.writeFile(environment.FILE_EXTENSION, JSON.stringify(extendsList, null, 2));
-        giteeServer.postGist(environment.FILE_EXTENSION, environment.FILE_EXTENSION_NAME, false, true, callback);
+        var extendsList = SyncService.getAllExt();
+        giteeServer.postGistV2(JSON.stringify(extendsList, null, 2), environment.FILE_EXTENSION_NAME, callback);
 
         // upload keyboard bind
         var remoteKeyboardFileName = environment.FILE_KEYBINDING_NAME;
@@ -92,9 +83,8 @@ export class SyncService {
         }
         giteeServer.fetchGist(environment.FILE_KEYBINDING, remoteKeyboardFileName, false, callback);
 
-
+        // down extension json
         giteeServer.fetchGistExtensions(environment.FILE_EXTENSION_NAME, SyncService.ignornExts, PluginService.InstallExtensions, callback);
-
         // SyncService.installExtensions(environment.FILE_EXTENSION, callback);
         // // down snippets zip
         await giteeServer.fetchGist(environment.FILE_SNIPPETS_ZIP, environment.FILE_SNIPPETS_ZIP_NAME, true, callback);
