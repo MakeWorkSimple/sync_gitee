@@ -44,6 +44,7 @@ export class GiteeOAuthService {
 
         readfile(source_path).then(
             (params: any) => {
+                console.log("gist: ", this.gist);
                 var _this = this;
                 var data = {
 

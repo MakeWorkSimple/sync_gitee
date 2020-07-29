@@ -28,9 +28,6 @@ export function activate(context: vscode.ExtensionContext) {
 	let push = vscode.commands.registerCommand('extension.giteeUploadSetting', () => {
 		// The code you place here will be executed every time your command is executed
 		SyncService.uploadCMD(giteeService, environment, Commons.outPut);
-
-
-
 	});
 
 	let pull = vscode.commands.registerCommand('extension.giteeDownloadSetting', async () => {
@@ -40,8 +37,13 @@ export function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(push);
 	context.subscriptions.push(pull);
+	// 监听配置文件变化
+	context.subscriptions.push(SyncService.watch(giteeService));
 
 }
 
 // this method is called when your extension is deactivated
 export function deactivate() { }
+
+
+
