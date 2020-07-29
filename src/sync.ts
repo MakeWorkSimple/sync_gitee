@@ -14,6 +14,7 @@ import { eventNames } from 'cluster';
 import { ISyncLock } from "./models/state.model";
 import { type } from 'os';
 import { types } from 'util';
+import * as vscode from 'vscode';
 export class SyncService {
     public static zip = new Zip();
     public static ignornExts = ["Alex-Chen.gitee-code-settings-sync"];
@@ -106,5 +107,12 @@ export class SyncService {
         // remove zip file
         callback(environment.FILE_SNIPPETS_ZIP);
         unlink(environment.FILE_SNIPPETS_ZIP);
+    }
+    public static watch(giteeServer: GiteeOAuthService): vscode.Disposable {
+        return vscode.workspace.onDidChangeConfiguration(() => {
+            let configuration = vscode.workspace.getConfiguration('gitee');
+            giteeServer.access_token = configuration.get('access_token');
+            giteeServer.gist = configuration.get('gist');
+        });
     }
 }
