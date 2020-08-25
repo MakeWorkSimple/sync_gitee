@@ -5,7 +5,6 @@ import { Environment } from './environmentPath';
 import { GiteeOAuthService } from './service/gitee.oauth.service';
 import { SyncService } from './sync';
 import * as nls from 'vscode-nls';
-import { Commons } from './commons';
 const localize = nls.config({ messageFormat: nls.MessageFormat.file })();
 
 // this method is called when your extension is activated
@@ -20,19 +19,18 @@ export function activate(context: vscode.ExtensionContext) {
 	var gist = configuration.get('gist');
 	var aoth = configuration.get('access_token');
 	let giteeService = new GiteeOAuthService(aoth, gist);
-	Commons.initCommons();
-
+	let syncService = new SyncService();
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
 	let push = vscode.commands.registerCommand('extension.giteeUploadSetting', () => {
 		// The code you place here will be executed every time your command is executed
-		SyncService.uploadCMD(giteeService, environment, Commons.outPut);
+		syncService.uploadCMD(giteeService, environment);
 	});
 
-	let pull = vscode.commands.registerCommand('extension.giteeDownloadSetting', async () => {
+	let pull = vscode.commands.registerCommand('extension.giteeDownloadSetting', () => {
 		// The code you place here will be executed every time your command is executed
-		SyncService.downodCMD(giteeService, environment, Commons.outPut);
+		syncService.downodCMD(giteeService, environment);
 	});
 
 	context.subscriptions.push(push);
