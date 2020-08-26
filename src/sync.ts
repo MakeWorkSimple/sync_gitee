@@ -15,10 +15,16 @@ import { ISyncLock } from "./models/state.model";
 import { type } from 'os';
 import { types } from 'util';
 import * as vscode from 'vscode';
+import { Commons } from './commons';
+
 export class SyncService {
+    public output: any;
+    public outputBind: boolean;
     public static zip = new Zip();
     public static ignornExts = ["Alex-Chen.gitee-code-settings-sync"];
-
+    constructor() {
+        this.outputBind = false;
+    }
     public static readAnyFile(path: string) {
         return new Promise((resolve, reject) => {
             readFile(path, 'utf8', (err, data) => {
@@ -50,8 +56,13 @@ export class SyncService {
     }
 
 
-    public static uploadCMD(giteeServer: GiteeOAuthService, environment: Environment, callback: (msg: string) => any) {
-        // upload settings.json
+    public uploadCMD(giteeServer: GiteeOAuthService, environment: Environment) {
+        if (!this.outputBind) {
+            Commons.initCommons();
+            this.output = Commons.outPut;
+            this.outputBind = true;
+        }
+        var callback = this.output;
         giteeServer.postGist(environment.FILE_SETTING, environment.FILE_SETTING_NAME, false, false, callback);
         var uploadTime = new Date();
 
@@ -74,7 +85,13 @@ export class SyncService {
         giteeServer.postGist(snipperZipFile, environment.FILE_SNIPPETS_ZIP_NAME, true, true, callback);
 
     }
-    public static async downodCMD(giteeServer: GiteeOAuthService, environment: Environment, callback: (msg: string) => any) {
+    public async downodCMD(giteeServer: GiteeOAuthService, environment: Environment) {
+        if (!this.outputBind) {
+            Commons.initCommons();
+            this.output = Commons.outPut;
+            this.outputBind = true;
+        }
+        var callback = this.output;
         giteeServer.fetchGist(environment.FILE_SETTING, environment.FILE_SETTING_NAME, false, callback);
         giteeServer.fetchGist(environment.FILE_EXTENSION, environment.FILE_EXTENSION_NAME, false, callback);
         // down keyboard binding
