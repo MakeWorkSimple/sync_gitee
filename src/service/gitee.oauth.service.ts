@@ -1,8 +1,5 @@
-import { readFile, writeFile, writeFileSync, unlink } from 'fs';
+import { readFile, writeFile, unlink } from 'fs';
 import fetch from "node-fetch";
-import * as express from "express";
-import { resolve } from 'dns';
-import { rejects } from 'assert';
 
 
 export class GiteeOAuthService {
@@ -12,7 +9,7 @@ export class GiteeOAuthService {
         this.gist = gist;
     }
 
-    public getGist(access_token: string, host: (json: string) => any) {
+    public getGist(host: (json: string) => any) {
         const source_url = `https://gitee.com/api/v5/gists?access_token=${this.access_token}`;
         fetch(source_url,
             {
@@ -62,7 +59,7 @@ export class GiteeOAuthService {
                         body: JSON.stringify(data),
                         headers: { 'Content-Type': 'application/json' },
                     }).then(
-                        res => {
+                        () => {
                             return source_name;
                         }
                     ).then(
