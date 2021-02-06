@@ -2,7 +2,7 @@
 	"name": "gitee-code-settings-sync",
 	"displayName": "code settings sync",
 	"description": "code settings upload to gitee",
-	"version": "0.1.19",
+	"version": "0.1.20",
 	"publisher": "Alex-Chen",
 	"icon": "images/logo.png",
 	"author": {
@@ -96,7 +96,7 @@
 		"express": "^4.16.4",
 		"fs-extra": "^8.0.1",
 		"node-fetch": "^2.5.0",
-		"vsce": "^1.75.0",
+		"vsce": "^1.85.0",
 		"vscode-nls": "^3.2.5"
 	}
 }
