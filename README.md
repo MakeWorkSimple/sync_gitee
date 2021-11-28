@@ -1,7 +1,7 @@
 # Settings Sync To Gitee
 
 做一个简单同步vscode 配置的插件，因为github gist不知原因的
-不可访问，所以国内会同步到码云，稍后会放出教程。
+不可访问，所以国内会同步到码云。
 
 ## Features
 
@@ -13,7 +13,7 @@
 
 https://gitee.com/gists > 我的代码 > +代码片段 > 填写相应内容
 
-然后会在 ![图片](https://raw.githubusercontent.com/MakeWorkSimple/sync_gitee/master/images/gists.png) 这里看到 gist id
+然后会在浏览器地址看到`https://gitee.com/<your_name>/codes/<gist_id>` ![图片](https://raw.githubusercontent.com/MakeWorkSimple/sync_gitee/master/images/gists.png) 这里看到gist id
 
 注意: 
 > gitee问题不能创建空gist，所以一定要创建一个文件
@@ -52,7 +52,9 @@ https://gitee.com/gists > 我的代码 > +代码片段 > 填写相应内容
 ## Known Issues
 
 未做特别分页处理，如果设置的代码没有在前20条则会获取失败，但是不会影响上传。
-本次上传会连gitee配置同时上传，用于个人同步代码，如果需要不同人共用配置，则会加到下个版本
+本次上传会连gitee配置同时上传，用于个人同步代码，如果需要不同人共用配置，则会加到下个版本。
+
+>使用命令的时候注意应该非remote环境，因为本插件未能难道remote setting, remote环境下无法获取localsetting，会导致混淆。
 ## Release Notes
 
 联系地址（*bufubaoni@163.com*）

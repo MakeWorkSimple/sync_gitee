@@ -22,7 +22,7 @@ export class ExtensionInformation {
             item.version = obj.version;
             return item;
         } catch (err) {
-            throw new Error(err);
+            throw err;
         }
     }
 
@@ -58,7 +58,7 @@ export class ExtensionInformation {
                 }
             });
         } catch (err) {
-            throw new Error(err);
+            throw err;
         }
 
         return extList;
@@ -164,7 +164,7 @@ export class PluginService {
             );
             return true;
         } catch (err) {
-            throw new Error(err);
+            throw err;
         }
     }
 
@@ -241,7 +241,7 @@ export class PluginService {
                 notificationCallBack("");
                 addedExtensions.push(ext);
             } catch (err) {
-                throw new Error(err);
+                throw err;
             }
         }
         return addedExtensions;
